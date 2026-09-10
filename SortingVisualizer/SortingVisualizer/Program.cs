@@ -11,16 +11,10 @@ public static class Program
         services.AddWindow(new WindowConfig(1260, 920, "Sorting Visualizer", IsDebugMode: true));
 
         var serviceProvider = services.BuildServiceProvider();
-        var window = serviceProvider.GetRequiredService<Window>();
-
-        window.Initialize();
-
-        while (!window.IsClosed)
-        {
-            window.BeginFrame();
-            window.EndFrame();
-        }
-
-        window.Close();
+        var visualizer = serviceProvider.GetRequiredService<Visualizer>();
+        
+        visualizer.Initialize();
+        visualizer.Run();
+        visualizer.Dispose();
     }
 }

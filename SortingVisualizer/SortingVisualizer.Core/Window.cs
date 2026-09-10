@@ -6,7 +6,7 @@ public class Window(WindowConfig config)
 {
     private bool _initialized;
     public Color BackgroundColor { get; set; } = Color.Black;
-    public bool IsClosed => Raylib.WindowShouldClose();
+    public bool ShouldClose => _initialized && Raylib.WindowShouldClose();
 
     public void Initialize()
     {
@@ -31,7 +31,6 @@ public class Window(WindowConfig config)
 
     public void Close()
     {
-        if (!_initialized) throw new InvalidOperationException("Window is not initialized");
         Raylib.CloseWindow();
     }
 }

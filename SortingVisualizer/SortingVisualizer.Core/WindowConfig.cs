@@ -1,3 +1,3 @@
 ﻿namespace SortingVisualizer.Core;
 
-public record WindowConfig(int Height, int Width, string Title, int TargetFps = 60, bool IsDebugMode = false);
+public record WindowConfig(int Width, int Height, string Title, int TargetFps = 60, bool IsDebugMode = false);

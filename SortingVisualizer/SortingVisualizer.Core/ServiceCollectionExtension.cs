@@ -8,6 +8,7 @@ public static class ServiceCollectionExtension
     {
         services.AddSingleton(config);
         services.AddSingleton<Window>();
+        services.AddSingleton<Visualizer>();
         //future services
 
         return services;
