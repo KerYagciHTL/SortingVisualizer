@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortingVisualizer", "SortingVisualizer\SortingVisualizer.csproj", "{29F7018A-2674-40CE-A98A-E2455F9103D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortingVisualizer.Core", "SortingVisualizer.Core\SortingVisualizer.Core.csproj", "{A7861809-FDA6-4764-B8DD-0533CBD00B32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{29F7018A-2674-40CE-A98A-E2455F9103D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29F7018A-2674-40CE-A98A-E2455F9103D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29F7018A-2674-40CE-A98A-E2455F9103D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7861809-FDA6-4764-B8DD-0533CBD00B32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7861809-FDA6-4764-B8DD-0533CBD00B32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7861809-FDA6-4764-B8DD-0533CBD00B32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7861809-FDA6-4764-B8DD-0533CBD00B32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
