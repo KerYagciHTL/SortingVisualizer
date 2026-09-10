@@ -4,9 +4,9 @@ namespace SortingVisualizer.Core;
 
 public class Window(WindowConfig config)
 {
-    public Color BackgroundColor { get; set; } = Color.Black;
-    
     private bool _initialized;
+    public Color BackgroundColor { get; set; } = Color.Black;
+    public bool IsClosed => Raylib.WindowShouldClose();
 
     public void Initialize()
     {
@@ -14,15 +14,15 @@ public class Window(WindowConfig config)
         Raylib.SetTargetFPS(config.TargetFps);
         _initialized = true;
     }
-    
+
     public void BeginFrame()
     {
         if (!_initialized) throw new InvalidOperationException("Window is not initialized");
-        
+
         Raylib.BeginDrawing();
         Raylib.ClearBackground(BackgroundColor);
     }
-    
+
     public void EndFrame()
     {
         if (!_initialized) throw new InvalidOperationException("Window is not initialized");
