@@ -7,6 +7,8 @@ public class Array(int[] array, WindowConfig config)
     public const int FontSize = 16;
     public const int Width = 150;
     
+    private bool[] _selectedIndices = new bool[array.Length];
+    
     public void Draw()
     {
         var margin = (config.Width - array.Length * Width) / (array.Length + 1);
@@ -16,19 +18,21 @@ public class Array(int[] array, WindowConfig config)
         var maxValue = array.Max();
         var availableHeight = (int)(config.Height * 0.75f);
 
-        foreach (var value in array)
+        for (var i = 0; i < array.Length; i++)
         {
+            var value = array[i];
             var ratio = maxValue > 0 ? (float)value / maxValue : 0f;
             var barHeight = (int)(ratio * availableHeight);
 
-            Raylib.DrawRectangle(curPosX, baseline - barHeight, Width, barHeight, Color.SkyBlue);
-    
+            Raylib.DrawRectangle(curPosX, baseline - barHeight, Width, barHeight,
+                _selectedIndices[i] ? Color.Green : Color.SkyBlue);
+
             if (config.IsDebugMode)
             {
                 //Starting Points
                 Raylib.DrawCircle(curPosX, baseline, 5, Color.Red);
                 Raylib.DrawCircle(curPosX + Width, baseline, 5, Color.Red);
-                
+
                 //Display number
                 var text = value.ToString();
                 var textWidth = Raylib.MeasureText(text, FontSize);
