@@ -12,7 +12,7 @@ public static class Program
 
         var serviceProvider = services.BuildServiceProvider();
         var visualizer = serviceProvider.GetRequiredService<Visualizer>();
-        
+
         visualizer.Initialize();
         visualizer.Run();
         visualizer.Dispose();

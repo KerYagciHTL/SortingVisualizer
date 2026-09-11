@@ -6,9 +6,9 @@ public class Array(int[] array, WindowConfig config)
 {
     public const int FontSize = 16;
     public const int Width = 150;
-    
-    private bool[] _selectedIndices = new bool[array.Length];
-    
+
+    private readonly bool[] _selectedIndices = new bool[array.Length];
+
     public void Draw()
     {
         var margin = (config.Width - array.Length * Width) / (array.Length + 1);
@@ -38,7 +38,7 @@ public class Array(int[] array, WindowConfig config)
                 var textWidth = Raylib.MeasureText(text, FontSize);
 
                 var textX = curPosX + (Width - textWidth) / 2;
-                var textY = (baseline - barHeight) + (barHeight - FontSize) / 2;
+                var textY = baseline - barHeight + (barHeight - FontSize) / 2;
 
                 Raylib.DrawText(text, textX, textY, FontSize, Color.Black);
             }

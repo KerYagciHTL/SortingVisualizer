@@ -5,7 +5,12 @@ namespace SortingVisualizer.Core;
 public class Visualizer(Window window, Array array) : IDisposable
 {
     private bool _initialized;
-    
+
+    public void Dispose()
+    {
+        if (_initialized) window.Close();
+    }
+
     public void Initialize()
     {
         window.Initialize();
@@ -14,7 +19,7 @@ public class Visualizer(Window window, Array array) : IDisposable
 
     public void Run()
     {
-        if(!_initialized) throw new InvalidOperationException("Visualizer is not initialized");
+        if (!_initialized) throw new InvalidOperationException("Visualizer is not initialized");
         try
         {
             Loop();
@@ -24,21 +29,16 @@ public class Visualizer(Window window, Array array) : IDisposable
             Console.Error.WriteLine(e.ToString());
         }
     }
-    
+
     private void Loop()
     {
         while (!window.ShouldClose)
         {
             array.Update(Raylib.GetFrameTime());
-            
+
             window.BeginFrame();
             array.Draw();
             window.EndFrame();
         }
-    }
-
-    public void Dispose()
-    {
-        if(_initialized) window.Close();
     }
 }
