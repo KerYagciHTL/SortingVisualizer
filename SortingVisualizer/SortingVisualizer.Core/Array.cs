@@ -5,9 +5,9 @@ namespace SortingVisualizer.Core;
 public class Array(int[] array, WindowConfig config)
 {
     public const int FontSize = 16;
-    public const int Width = 150;
+    public const int Margin = 10;
 
-    private const float StepDelay = 0.5f;
+    private const float StepDelay = 0.1f;
 
     private readonly bool[] _selectedIndices = new bool[array.Length];
     private IEnumerator<bool>? _sortSteps;
@@ -16,8 +16,8 @@ public class Array(int[] array, WindowConfig config)
 
     public void Draw()
     {
-        var margin = (config.Width - array.Length * Width) / (array.Length + 1);
-        var curPosX = margin;
+        var width = (config.Width - Margin * (array.Length + 1)) / array.Length;
+        var curPosX = Margin;
         var baseline = (int)(config.Height / 1.2f);
 
         var maxValue = array.Max();
@@ -29,26 +29,22 @@ public class Array(int[] array, WindowConfig config)
             var ratio = maxValue > 0 ? (float)value / maxValue : 0f;
             var barHeight = (int)(ratio * availableHeight);
 
-            Raylib.DrawRectangle(curPosX, baseline - barHeight, Width, barHeight,
-                _selectedIndices[i] ? Color.Green : Color.SkyBlue);
+            Raylib.DrawRectangle(curPosX, baseline - barHeight, width, barHeight,
+                _selectedIndices[i] ? Color.Green : Color.White);
 
             if (config.IsDebugMode)
             {
-                //Starting Points
-                Raylib.DrawCircle(curPosX, baseline, 5, Color.Red);
-                Raylib.DrawCircle(curPosX + Width, baseline, 5, Color.Red);
-
                 //Display number
                 var text = value.ToString();
                 var textWidth = Raylib.MeasureText(text, FontSize);
 
-                var textX = curPosX + (Width - textWidth) / 2;
+                var textX = curPosX + (width - textWidth) / 2;
                 var textY = baseline - barHeight + (barHeight - FontSize) / 2;
 
                 Raylib.DrawText(text, textX, textY, FontSize, Color.Black);
             }
 
-            curPosX += Width + margin;
+            curPosX += width + Margin;
         }
     }
 
