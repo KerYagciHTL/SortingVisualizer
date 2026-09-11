@@ -9,6 +9,7 @@ public static class ServiceCollectionExtension
         services.AddSingleton(config);
         services.AddSingleton<Window>();
         services.AddSingleton<Visualizer>();
+        services.AddSingleton(new Array([5,3,1,4], config));
         //future services
 
         return services;

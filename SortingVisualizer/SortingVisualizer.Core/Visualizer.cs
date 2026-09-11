@@ -1,6 +1,8 @@
-﻿namespace SortingVisualizer.Core;
+﻿using Raylib_cs;
 
-public class Visualizer(Window window) : IDisposable
+namespace SortingVisualizer.Core;
+
+public class Visualizer(Window window, Array array) : IDisposable
 {
     private bool _initialized;
     
@@ -27,7 +29,10 @@ public class Visualizer(Window window) : IDisposable
     {
         while (!window.ShouldClose)
         {
+            array.Update(Raylib.GetFrameTime());
+            
             window.BeginFrame();
+            array.Draw();
             window.EndFrame();
         }
     }
