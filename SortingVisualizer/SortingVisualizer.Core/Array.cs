@@ -7,7 +7,12 @@ public class Array(int[] array, WindowConfig config)
     public const int FontSize = 16;
     public const int Width = 150;
 
+    private const float StepDelay = 0.5f;
+
     private readonly bool[] _selectedIndices = new bool[array.Length];
+    private IEnumerator<bool>? _sortSteps;
+    private float _stepTimer;
+    private bool _isSorted;
 
     public void Draw()
     {
@@ -47,7 +52,48 @@ public class Array(int[] array, WindowConfig config)
         }
     }
 
+    private void Sort()
+    {
+        _sortSteps = BubbleSort().GetEnumerator();
+    }
+
     public void Update(float dt)
     {
+        if (_isSorted) return;
+
+        if (_sortSteps is null)
+        {
+            Sort();
+            return;
+        }
+
+        _stepTimer += dt;
+        if (_stepTimer < StepDelay) return;
+        _stepTimer = 0f;
+
+        if (_sortSteps.MoveNext()) return;
+
+        _sortSteps = null;
+        _isSorted = true;
+        System.Array.Fill(_selectedIndices, true);
+    }
+
+    private IEnumerable<bool> BubbleSort()
+    {
+        for (var i = 0; i < array.Length - 1; i++)
+        {
+            for (var j = 0; j < array.Length - i - 1; j++)
+            {
+                System.Array.Clear(_selectedIndices);
+                _selectedIndices[j] = true;
+                _selectedIndices[j + 1] = true;
+                yield return true;
+
+                if (array[j] <= array[j + 1]) continue;
+
+                (array[j], array[j + 1]) = (array[j + 1], array[j]);
+                yield return true;
+            }
+        }
     }
 }
