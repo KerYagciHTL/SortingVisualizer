@@ -11,7 +11,7 @@ public class Array(int[] array, WindowConfig config)
     private const float StepDelay = 0f;
 
     private readonly bool[] _selectedIndices = new bool[array.Length];
-    private IEnumerator<bool>? _sortSteps;
+    private IEnumerator<SortStep>? _sortSteps;
     private float _stepTimer;
     private bool _isSorted;
 
@@ -52,7 +52,7 @@ public class Array(int[] array, WindowConfig config)
 
     private void Sort()
     {
-        _sortSteps = BubbleSort().GetEnumerator();
+        _sortSteps = NativeMethods.BubbleSort(array).GetEnumerator();
     }
 
     public void Update(float dt)
@@ -69,29 +69,21 @@ public class Array(int[] array, WindowConfig config)
         if (_stepTimer < StepDelay) return;
         _stepTimer = 0f;
 
-        if (_sortSteps.MoveNext()) return;
+        if (_sortSteps.MoveNext())
+        {
+            Highlight(_sortSteps.Current);
+            return;
+        }
 
         _sortSteps = null;
         _isSorted = true;
         System.Array.Fill(_selectedIndices, true);
     }
 
-    private IEnumerable<bool> BubbleSort()
+    private void Highlight(SortStep step)
     {
-        for (var i = 0; i < array.Length - 1; i++)
-        {
-            for (var j = 0; j < array.Length - i - 1; j++)
-            {
-                System.Array.Clear(_selectedIndices);
-                _selectedIndices[j] = true;
-                _selectedIndices[j + 1] = true;
-                yield return true;
-
-                if (array[j] <= array[j + 1]) continue;
-
-                (array[j], array[j + 1]) = (array[j + 1], array[j]);
-                yield return true;
-            }
-        }
+        System.Array.Clear(_selectedIndices);
+        _selectedIndices[step.First] = true;
+        _selectedIndices[step.Second] = true;
     }
 }

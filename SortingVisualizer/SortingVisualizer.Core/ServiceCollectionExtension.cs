@@ -9,7 +9,7 @@ public static class ServiceCollectionExtension
         services.AddSingleton(config);
         services.AddSingleton<Window>();
         services.AddSingleton<Visualizer>();
-        services.AddSingleton(new Array(NativeMethods.GetRandomSortedArray(1, 1000, 100), config));
+        services.AddSingleton(new Array(NativeMethods.GetRandomArray(1, 100, 40), config));
         //future services
 
         return services;
